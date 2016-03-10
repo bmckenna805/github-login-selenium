@@ -5,13 +5,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest
+import time
+import re
 import sys
 from getpass import getpass
 
 
 github_account = "redhero0702@gmail.com"
 github_passwd = getpass("input your github password:")
+
 
 class GithubLogin(unittest.TestCase):
     def setUp(self):
@@ -32,13 +35,17 @@ class GithubLogin(unittest.TestCase):
         driver.find_element_by_link_text("Repositories").click()
     
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
-        except NoSuchElementException as e: return False
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
         return True
     
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
-        except NoAlertPresentException as e: return False
+        try:
+            self.driver.switch_to_alert()
+        except NoAlertPresentException as e:
+            return False
         return True
     
     def close_alert_and_get_its_text(self):
@@ -50,7 +57,8 @@ class GithubLogin(unittest.TestCase):
             else:
                 alert.dismiss()
             return alert_text
-        finally: self.accept_next_alert = True
+        finally:
+            self.accept_next_alert = True
     
     def tearDown(self):
         self.driver.quit()
